@@ -33,9 +33,9 @@ using namespace std;
 //  Calls:        function Compare::lt, function Compare::get_count,
 //                functiondistance, vector.begin, vector.end
 //
-//  Time Complex: O(n) OR =~O(4n)
+//  Time Complex: ~=O(3n/2)
 //
-//  Space Complex:O(1)
+//  Space Complex:O(1+16)
 //
 //******************************************************************
 void FindMaxMin(const vector<Student> &students,
@@ -52,6 +52,11 @@ void FindMaxMin(const vector<Student> &students,
   auto it = students.begin(); // creates iterator to traverse vector
   auto it2 = students.begin()+1; // creates iterator that points to index right of it
 
+  if (students.size() < 4) {
+    cout << "ERROR: TEST SET TOO SMALL" << endl;
+    return; // throws error if set of students is smaller than 4
+  }
+	
   // FIND MAX, MAX2, MIN, MIN2
 
   for (it = students.begin(); it != students.end(); it = it+2) {
@@ -131,27 +136,32 @@ void FindMaxMin(const vector<Student> &students,
 //  Calls:        function Compare::lt, function Compare::get_count,
 //                functiondistance, vector.begin, vector.end
 //
-//  Time Complex: O(n) OR =~O(4n)
+//  Time Complex: =~O(3n/2)
 //
-//  Space Complex:O(1)
+//  Space Complex:O(1+16)
 //
 //******************************************************************
 void FindMaxMinGPA(const vector<Student> &students,
 		   size_t &max, size_t &max2,
 		   size_t &min, size_t &min2)
 {
+	
+  // INITIALIZATION OF VARIABLES
+	
   max = students.size()+1; // initializes max to be recognized as unset
   max2 = students.size()+1; // initializes max2 to be recognized as unset
   min = students.size()+1; // initializes min to be recognized as unset
   min2 = students.size()+1; // initializes min2 to be recognized as unset
   auto it = students.begin(); // creates iterator to traverse vector
   auto it2 = students.begin()+1; // creates iterator that points to index right of it
-
+	
   if (students.size() < 4) {
     cout << "ERROR: TEST SET TOO SMALL" << endl;
-    return;
+    return; // throws error if set of students is smaller than 4
   }
 
+  // FIND MAX, MAX2, MIN, MIN2
+	
   for (it = students.begin(); it != students.end(); it = it + 2) {
     if (it != students.end()) {
       it2 = it + 1;
