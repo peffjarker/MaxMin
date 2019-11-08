@@ -199,6 +199,7 @@ void FindMaxMinGPA(const vector<Student> &students,
           min2 = distance(students.begin(), it);
         }
       }
+      return;
     } else {
       it2 = it + 1;
       if (CompareGPA::lt(*it2, *it)) {
