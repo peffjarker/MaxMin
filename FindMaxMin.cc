@@ -42,76 +42,88 @@ void FindMaxMin(const vector<Student> &students,
                 size_t &max, size_t &max2,
                 size_t &min, size_t &min2)
 {
-
   // INITIALIZATION OF VARIABLES
-
   max = students.size()+1; // initializes max to be recognized as unset
   max2 = students.size()+1; // initializes max2 to be recognized as unset
   min = students.size()+1; // initializes min to be recognized as unset
   min2 = students.size()+1; // initializes min2 to be recognized as unset
   auto it = students.begin(); // creates iterator to traverse vector
-  auto it2 = students.begin()+1; // creates iterator that points to index right of it
-
-  if (students.size() < 4) {
-    cout << "ERROR: TEST SET TOO SMALL" << endl;
-    return; // throws error if set of students is smaller than 4
-  }
-	
-  // FIND MAX, MAX2, MIN, MIN2
-
+  auto it2 = students.begin()+1; // creates iterator next to iterator it
+  // FIND MAX MIN MAX2 MIN2
   for (it = students.begin(); it != students.end(); it = it+2) {
-    it2 = it + 1;
-    if (it2 == students.end()) {
-      it2 = it;
+    // for case which input size is odd we need to check if we're accessing
+    // data out of bounds
+    if (it > students.end()) {
+      return;
     }
-    if (Compare::lt(*it2, *it)) {
-      if (!(Compare::lt(*it, students[min2])) ||  min2 == students.size()+1) {
-        if (!(Compare::lt(*it, students[min])) ||  min == students.size()+1) {
-          if (Compare::get_count() == 1) {
-             min = distance(students.begin(), it);
-          } else {
-             min2 =  min;
-             min = distance(students.begin(), it);
-          }
+    if (it == students.end()-1) {
+      if (!(Compare::lt(*it, students[min2]))) {
+        if (!(Compare::lt(*it, students[min]))) {
+          min2 =  min;
+          min = distance(students.begin(), it);
         } else {
           min2 = distance(students.begin(), it);
         }
-      }
-      if (Compare::lt(*it2, students[max2]) ||  max2 == students.size()+1) {
-        if (Compare::lt(*it2, students[max]) ||  max == students.size()+1) {
-          if (Compare::get_count() == 1) {
-             max = distance(students.begin(), it2);
-          } else {
-             max2 =  max;
-             max = distance(students.begin(), it2);
-          }
-        } else {
-          max2 = distance(students.begin(), it2);
-        }
-      }
-    } else {
-      if (Compare::lt(*it, students[max2]) || max2 == students.size()+1) {
-        if (Compare::lt(*it, students[max]) || max == students.size()+1) {
-          if (Compare::get_count() == 1) {
-            max = distance(students.begin(), it);
-          } else {
-            max2 = max;
-            max = distance(students.begin(), it);
-          }
+      } else if (Compare::lt(*it, students[max2])) {
+        if (Compare::lt(*it, students[max])) {
+          max2 = max;
+          max = distance(students.begin(), it);
         } else {
           max2 = distance(students.begin(), it);
         }
       }
-      if (!(Compare::lt(*it2, students[min2])) || min2 == students.size()+1) {
-        if (!(Compare::lt(*it2, students[min])) || min == students.size()+1) {
-          if (Compare::get_count() == 1) {
-            min = distance(students.begin(), it2);
+      return;
+    } else {
+      it2 = it + 1;
+      if (Compare::lt(*it2, *it)) {
+        if (!(Compare::lt(*it, students[min2])) ||  min2 == students.size()+1) {
+          if (!(Compare::lt(*it, students[min])) ||  min == students.size()+1) {
+            if (Compare::get_count() == 1) {
+               min = distance(students.begin(), it);
+            } else {
+               min2 =  min;
+               min = distance(students.begin(), it);
+            }
           } else {
-            min2 = min;
-            min = distance(students.begin(), it2);
+            min2 = distance(students.begin(), it);
           }
-        } else {
-          min2 = distance(students.begin(), it2);
+        }
+        if (Compare::lt(*it2, students[max2]) ||  max2 == students.size()+1) {
+          if (Compare::lt(*it2, students[max]) ||  max == students.size()+1) {
+            if (Compare::get_count() == 1) {
+               max = distance(students.begin(), it2);
+            } else {
+               max2 =  max;
+               max = distance(students.begin(), it2);
+            }
+          } else {
+            max2 = distance(students.begin(), it2);
+          }
+        }
+      } else {
+        if (Compare::lt(*it, students[max2]) || max2 == students.size()+1) {
+          if (Compare::lt(*it, students[max]) || max == students.size()+1) {
+            if (Compare::get_count() == 1) {
+              max = distance(students.begin(), it);
+            } else {
+              max2 = max;
+              max = distance(students.begin(), it);
+            }
+          } else {
+            max2 = distance(students.begin(), it);
+          }
+        }
+        if (!(Compare::lt(*it2, students[min2])) || min2 == students.size()+1) {
+          if (!(Compare::lt(*it2, students[min])) || min == students.size()+1) {
+            if (Compare::get_count() == 1) {
+              min = distance(students.begin(), it2);
+            } else {
+              min2 = min;
+              min = distance(students.begin(), it2);
+            }
+          } else {
+            min2 = distance(students.begin(), it2);
+          }
         }
       }
     }
@@ -145,75 +157,90 @@ void FindMaxMinGPA(const vector<Student> &students,
 		   size_t &max, size_t &max2,
 		   size_t &min, size_t &min2)
 {
-	
+
+
   // INITIALIZATION OF VARIABLES
-	
+
   max = students.size()+1; // initializes max to be recognized as unset
   max2 = students.size()+1; // initializes max2 to be recognized as unset
   min = students.size()+1; // initializes min to be recognized as unset
   min2 = students.size()+1; // initializes min2 to be recognized as unset
   auto it = students.begin(); // creates iterator to traverse vector
-  auto it2 = students.begin()+1; // creates iterator that points to index right of it
-	
-  if (students.size() < 4) {
-    cout << "ERROR: TEST SET TOO SMALL" << endl;
-    return; // throws error if set of students is smaller than 4
-  }
-
+  auto it2 = students.begin()+1; // creates iterator next to iterator it
   // FIND MAX, MAX2, MIN, MIN2
-	
-  for (it = students.begin(); it != students.end(); it = it + 2) {
-    if (it != students.end()) {
-      it2 = it + 1;
+  for (it = students.begin(); it != students.end(); it = it+2) {
+    // for case which input size is odd we need to check if we're accessing
+    // data out of bounds
+    if (it > students.end()) {
+      return;
     }
-    if (CompareGPA::lt(*it2, *it)) {
-      if (!(CompareGPA::lt(*it, students[max2])) || max2 == students.size()+1) {
-        if (!(CompareGPA::lt(*it, students[max])) || max == students.size()+1) {
-          if (CompareGPA::get_count() == 1) {
-            max = distance(students.begin(), it);
-          } else {
-            max2 = max;
-            max = distance(students.begin(), it);
-          }
+    if (it == students.end()-1) {
+      if (!(CompareGPA::lt(*it, students[max2]))) {
+        if (!(CompareGPA::lt(*it, students[max]))) {
+          max2 = max;
+          max = distance(students.begin(), it);
         } else {
           max2 = distance(students.begin(), it);
         }
-      }
-      if (CompareGPA::lt(*it2, students[min2]) || min2 == students.size()+1) {
-          if (CompareGPA::lt(*it2, students[min]) || min == students.size()+1) {
-            if (CompareGPA::get_count() == 1) {
-              min = distance(students.begin(), it2);
-            } else {
-              min2 = min;
-              min = distance(students.begin(), it2);
-            }
-        } else {
-          min2 = distance(students.begin(), it2);
-        }
-      }
-    } else {
-      if (CompareGPA::lt(*it, students[min2]) || min2 == students.size()+1) {
-        if (CompareGPA::lt(*it, students[min]) || min == students.size()+1) {
-          if (CompareGPA::get_count() == 1) {
-            min = distance(students.begin(), it);
-          } else {
-            min2 = min;
-            min = distance(students.begin(), it);
-          }
+      } else if (CompareGPA::lt(*it, students[min2])) {
+        if (CompareGPA::lt(*it, students[min])) {
+          min2 = min;
+          min = distance(students.begin(), it);
         } else {
           min2 = distance(students.begin(), it);
         }
       }
-      if (!(CompareGPA::lt(*it2, students[max2])) || max2 == students.size()+1) {
-        if (!(CompareGPA::lt(*it2, students[max])) || max == students.size()+1) {
-          if (CompareGPA::get_count() == 1) {
-            max = distance(students.begin(), it2);
+    } else {
+      it2 = it + 1;
+      if (CompareGPA::lt(*it2, *it)) {
+        if (!(CompareGPA::lt(*it, students[max2])) || max2 == students.size()+1) {
+          if (!(CompareGPA::lt(*it, students[max])) || max == students.size()+1) {
+            if (CompareGPA::get_count() == 1) {
+              max = distance(students.begin(), it);
+            } else {
+              max2 = max;
+              max = distance(students.begin(), it);
+            }
           } else {
-            max2 = max;
-            max = distance(students.begin(), it2);
+            max2 = distance(students.begin(), it);
           }
-        } else {
-          max2 = distance(students.begin(), it2);
+        }
+        if (CompareGPA::lt(*it2, students[min2]) || min2 == students.size()+1) {
+            if (CompareGPA::lt(*it2, students[min]) || min == students.size()+1) {
+              if (CompareGPA::get_count() == 1) {
+                min = distance(students.begin(), it2);
+              } else {
+                min2 = min;
+                min = distance(students.begin(), it2);
+              }
+          } else {
+            min2 = distance(students.begin(), it2);
+          }
+        }
+      } else {
+        if (CompareGPA::lt(*it, students[min2]) || min2 == students.size()+1) {
+          if (CompareGPA::lt(*it, students[min]) || min == students.size()+1) {
+            if (CompareGPA::get_count() == 1) {
+              min = distance(students.begin(), it);
+            } else {
+              min2 = min;
+              min = distance(students.begin(), it);
+            }
+          } else {
+            min2 = distance(students.begin(), it);
+          }
+        }
+        if (!(CompareGPA::lt(*it2, students[max2])) || max2 == students.size()+1) {
+          if (!(CompareGPA::lt(*it2, students[max])) || max == students.size()+1) {
+            if (CompareGPA::get_count() == 1) {
+              max = distance(students.begin(), it2);
+            } else {
+              max2 = max;
+              max = distance(students.begin(), it2);
+            }
+          } else {
+            max2 = distance(students.begin(), it2);
+          }
         }
       }
     }

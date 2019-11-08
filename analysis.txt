@@ -1,19 +1,19 @@
 For the FindMaxMin function I was able to achieve an algorithm with a time complexity
 of O(3n/2). I first implemented the simple answer for the program that runs in
-O(4n) then looked for ways to optimize it. I found that instead of only comparing
-one iterator during each iteration of the for loop, by using two iterators the
-program is able to determine which comparisons need made for each iterator. So
-for example, if it > it2, then we wouldn't need to check if it was a new min
-because we know it2 is smaller already. We also wouldn't need to check if it2 is
-a new max because we already know its smaller than it. At this point the program
-runs in O(7n/2) time. We can further optimize the algorithm by swapping where
-we check min/min2 and max/max2. Originally I checked max and min first, but
+O(4n) then I looked for ways to optimize it. I found that instead of only comparing
+one iterator during each iteration of my for loop, by comparing the current iterator to
+the next, the program is able to determine which comparisons need to be made for each iterator. 
+So for example, say it1 = vector.begin && it2 = vector.begin + 1. It test if it1 > it2 is true
+then we wouldn't need to check if it1 was a new min because we know it2 is smaller already. We also wouldn't need to check if it2 is a new max because we already know its smaller than it1. 
+At this point the program runs in O(7n/2) time. We can further optimize the algorithm by swapping where we check min/min2 and max/max2. Originally I checked max and min first, but
 if we check max2 and min2 first and it is not a new max2 or min2 then we know
-it couldn't be a new max or min so we don't need to check and save comparisons.
+it couldn't be a new max or min so we don't need to check and therefore save comparisons.
 
 FindMaxMinGPA was implemented the exact same way except instead of using a call
 to Compare::lt we need to call CompareGPA::lt to use the function which bases
-it compare of the GPA first. This function also runs in O(3n/2) time.
+it compare of the GPA first. Because they use the same algorithm this function is also O(3n/2)
 
-Both functions use only 2 extra iterators and no other space so the space complexity
-for both functions is O(1+16)
+Since I didn't need to create any local variables besides 2 iterators in both of the FindMinMax and FindMinMaxGPA functions the space complexity for both functions is O(1+16).
+
+I chose this algorithm obviously because it has the best posible time complexity for this problem. It isn't very natural to the human brain, so it can somewhat harder to understand but
+once implemented it runs much faster that the simple solution. 

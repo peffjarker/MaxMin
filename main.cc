@@ -147,7 +147,11 @@ vector<Student> generateStudents(size_t num)
 int main ()
 {
   vector<Student> Students;
-  const size_t NUM_STUDENTS=11;
+  const size_t NUM_STUDENTS=1543936;
+  if (NUM_STUDENTS < 4) {
+    cout << "ERROR: STUDENT SET TOO SMALL" << endl;
+    return -1;
+  }
   double start=timeofday();
   srand(time(NULL));
   Students = generateStudents(NUM_STUDENTS);
