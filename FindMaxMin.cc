@@ -4,7 +4,7 @@
 //
 //  Author:       Jeff Parker
 //  Email:        jp34416@ohio.edu
-//  ID:           PXXXXXXXXX
+//  ID:           P100846031
 //
 //  Course:       CS4040
 //
@@ -43,12 +43,12 @@ void FindMaxMin(const vector<Student> &students,
                 size_t &min, size_t &min2)
 {
   // INITIALIZATION OF VARIABLES
-  max = students.size()+1; // initializes max to be recognized as unset
-  max2 = students.size()+1; // initializes max2 to be recognized as unset
-  min = students.size()+1; // initializes min to be recognized as unset
-  min2 = students.size()+1; // initializes min2 to be recognized as unset
-  auto it = students.begin(); // creates iterator to traverse vector
-  auto it2 = students.begin()+1; // creates iterator next to iterator it
+  max = students.size()+1;	// initializes max to be recognized as unset
+  max2 = students.size()+1;	// initializes max2 to be recognized as unset
+  min = students.size()+1;	// initializes min to be recognized as unset
+  min2 = students.size()+1;	// initializes min2 to be recognized as unset
+  auto it = students.begin();	// creates iterator to traverse vector
+  auto it2 = students.begin()+1;// creates iterator next to iterator it
   // FIND MAX MIN MAX2 MIN2
   for (it = students.begin(); it != students.end(); it = it+2) {
     // for case which input size is odd we need to check if we're accessing
@@ -57,6 +57,9 @@ void FindMaxMin(const vector<Student> &students,
       return;
     }
     if (it == students.end()-1) {
+      // if it = students.end()-1 then it + 2 would cause the program to access
+      // out bounds. So instead of checking two iterators for this case the
+      // program only checks the final element in student rather than it and it2
       if (!(Compare::lt(*it, students[min2]))) {
         if (!(Compare::lt(*it, students[min]))) {
           min2 =  min;
@@ -72,8 +75,11 @@ void FindMaxMin(const vector<Student> &students,
           max2 = distance(students.begin(), it);
         }
       }
+      // since this is the case for the final element we need to return
       return;
     } else {
+      // it != students.end()-1 so the program operates as normally intended
+      // iterating it until it equals the end of the vector
       it2 = it + 1;
       if (Compare::lt(*it2, *it)) {
         if (!(Compare::lt(*it, students[min2])) ||  min2 == students.size()+1) {
@@ -175,6 +181,9 @@ void FindMaxMinGPA(const vector<Student> &students,
       return;
     }
     if (it == students.end()-1) {
+      // if it = students.end()-1 then it + 2 would cause the program to access
+      // out bounds. So instead of checking two iterators for this case the
+      // program only checks the final element in student rather than it and it2
       if (!(CompareGPA::lt(*it, students[max2]))) {
         if (!(CompareGPA::lt(*it, students[max]))) {
           max2 = max;
