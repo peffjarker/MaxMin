@@ -1,0 +1,19 @@
+For the FindMaxMin function I was able to achieve an algorithm with a time complexity
+of O(3n/2). I first implemented the simple answer for the program that runs in
+O(4n) then looked for ways to optimize it. I found that instead of only comparing
+one iterator during each iteration of the for loop, by using two iterators the
+program is able to determine which comparisons need made for each iterator. So
+for example, if it > it2, then we wouldn't need to check if it was a new min
+because we know it2 is smaller already. We also wouldn't need to check if it2 is
+a new max because we already know its smaller than it. At this point the program
+runs in O(7n/2) time. We can further optimize the algorithm by swapping where
+we check min/min2 and max/max2. Originally I checked max and min first, but
+if we check max2 and min2 first and it is not a new max2 or min2 then we know
+it couldn't be a new max or min so we don't need to check and save comparisons.
+
+FindMaxMinGPA was implemented the exact same way except instead of using a call
+to Compare::lt we need to call CompareGPA::lt to use the function which bases
+it compare of the GPA first. This function also runs in O(3n/2) time.
+
+Both functions use only 2 extra iterators and no other space so the space complexity
+for both functions is O(1+16)
